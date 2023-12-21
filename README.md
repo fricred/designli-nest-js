@@ -58,16 +58,46 @@ $ yarn run test:e2e
 $ yarn run test:cov
 ```
 
-## Support
+## Nest.js Email Parser
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+This Nest.js project includes an email parsing feature using the mail-parser library. It allows you to extract JSON content from emails, whether it's attached as a file or embedded within the email body.
 
-## Stay in touch
+### Usage
 
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+#### Parse Email via HTTP POST Request
 
-## License
+You can send an HTTP POST request to parse the email content. The request body should contain an `EmailEvent` object with the email content. The response will be the parsed email content.
 
-Nest is [MIT licensed](LICENSE).
+Example using `curl`:
+
+```bash
+curl -X POST -H "Content-Type: application/json" -d '{
+  "subject": "Sample Email",
+  "text": "This is the email content with a JSON attachment.",
+  "attachments": [
+    {
+      "filename": "data.json",
+      "contentType": "application/json",
+      "content": "{ \"key\": \"value\" }"
+    }
+  ]
+}' http://localhost:3000/email-parser
+```
+
+#### Parse Email via HTTP GET Request
+
+You can also send an HTTP GET request to parse the email content by providing the email file path or URL as a query parameter. The response will be the parsed JSON content.
+
+Example using a browser or an HTTP client:
+
+```bash
+GET http://localhost:3000/email-parser?emailFilePath=<path_or_url_to_email_file>
+
+```
+
+Replace <path_or_url_to_email_file> with the actual path or URL to the email file you want to parse.
+
+### Dependencies
+
+- [Nest.js](https://nestjs.com/)
+- [mail-parser](https://www.npmjs.com/package/mail-parser)

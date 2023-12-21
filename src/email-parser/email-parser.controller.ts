@@ -1,13 +1,5 @@
 // Import required modules and dependencies
-import {
-  Controller,
-  Post,
-  Body,
-  Get,
-  Param,
-  Query,
-  Header,
-} from '@nestjs/common';
+import { Controller, Post, Body, Get, Query, Header } from '@nestjs/common';
 import { EmailParserService } from './email-parser.service';
 import { EmailEvent } from '../models';
 
